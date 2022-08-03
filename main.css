@@ -1,0 +1,30 @@
+:root{
+    --text-color: rgb(6, 6, 114);
+}
+
+* {
+    /* Comment/uncomment để xem thay đổi trên tab TRÌNH DUYỆT */
+    margin: 0;
+}
+
+#first-heading{
+    color: rgb(101, 77, 47);
+    font-size: 2.4rem;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+h1{
+    color: var(--text-color);
+    font-size: 2.4rem;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.heading{
+    color: blueviolet;
+    font-size: 2.9rem;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    text-shadow: violet;
+}

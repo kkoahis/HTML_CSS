@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./assets/css/styleBEM_Toast_Message.css" />
+    <link rel="stylesheet" href="./assets/css/styleBEM.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>BEM_Toast_Message</title>
+  </head>
+
+  <body>
+    <div>
+      <div id="toast"></div>
+
+      <div>
+         <div onclick="showSuccessToast();" class="btn btn--success">Go To Next Approval</div>
+         <div onclick="showWarningToast();" class="btn btn--warning">OK</div>
+         <div onclick="showErrorToast();" class="btn btn--danger">Try Again</div>
+      </div>
+
+      <script>
+          function toast({title='', message='', type = 'info', duration = 3000 }){
+            const main = document.getElementById('toast');
+            if(main){
+              const toast = document.createElement('div');
+
+              // Auto remove toast
+              const autoRemoveId = setTimeout(function(){
+                main.removeChild(toast);
+              }, duration + 1000);
+
+              // Remove toast on click 
+              toast.onclick = function(e){
+                if(e.target.closest('.toast__close')){
+                  main.removeChild(toast);
+                  clearTimeout(autoRemoveId);
+                }
+              };
+
+              const icons = {
+                info: 'fa-solid fa-circle-info',
+                success: 'fa-solid fa-circle-check',
+                warning: 'fa-solid fa-circle-exclamation',
+                error: 'fa-solid fa-triangle-exclamation'
+              };  
+              const icon = icons[type];
+              const delay = (duration / 1000).toFixed(2);
+
+              toast.classList.add('toast', `toast--${type}`);
+              toast.style.animation = `slideInLeft ease 0.3s, slideOutLeft linear 1s ${delay}s forwards`;
+              toast.innerHTML = 
+              ` <div class="toast__icon">
+                  <i class="${icon}"></i>
+                </div>  
+                <div class="toast__body">
+                  <h3 class="toast__title">${title}</h3>
+                  <p class="toast__message">
+                    ${message}
+                  </p>
+                </div>
+                <div class="toast__close">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+              </div>`;
+              main.appendChild(toast);
+
+              
+            }
+          }
+          
+          function showSuccessToast(){
+            toast({
+            title: 'Success',
+            message: 'You have successfully completed the task.',
+            type: 'success',
+            duration: 5000
+          });
+          }
+
+          function showWarningToast(){
+            toast({
+            title: 'Warning',
+            message: 'You have unsuccessfully completed the task.',
+            type: 'warning',
+            duration: 5000
+          });
+          }
+
+          function showErrorToast(){
+            toast({
+            title: 'Error',
+            message: 'Something went wrong.',
+            type: 'error',
+            duration: 5000
+          });
+
+          }
+
+      </script>
+  </body>
+</html>
